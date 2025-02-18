@@ -1,0 +1,576 @@
+<!--1. When converting to PHP, split page up in to 'header.php', 'footer.php', and possibly 'sidebar.php' and place in 'includes' folder
+	
+	2. The first blog post will be displayed in the class .title-post1. This will always be the most recent post from the 'posts' table in the 'i_got_chills' database.
+
+	3. It will display any post from any category / If this does not work, make .php pages for each category -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+	  	<meta charset="UTF-8" />
+	  	<title>I Got Chills | The latest horror news & reviews</title>
+	  	<meta name="description" content="A brief description of the page" />
+	  	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Road+Rage&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+	  	<link rel="stylesheet" href="style.css" />
+	</head>
+	
+	<body>
+			
+		<nav>
+			<a href="index.html" class="logo">I<span class="logo-accent">GOT</span>CHILLS</a>
+			<ul class="menu-items">
+				<li><a href="index.html">HOME</a></li>
+				<li><a href="category.html">LATEST</a></li>
+				<li><a href="category.html">NEWS</a></li>
+				<li><a href="category.html">RUMOURS</a></li>
+				<li><a href="category.html">OPINION</a></li>
+				<li><a href="category.html">PREVIEWS</a></li>
+				<li><a href="category.html">REVIEWS</a></li>
+			</ul>
+			<div class="hamburger">
+				<div class="hamburger-lines" id="hamburger-line-1"></div>
+				<div class="hamburger-lines" id="hamburger-line-2"></div>
+				<div class="hamburger-lines" id="hamburger-line-3"></div>
+			</div>
+			<div class="slide-in-menu">
+				<a href="index.html" class="logo">I<span class="logo-accent">GOT</span>CHILLS</a>
+				<ul class="slide-in-menu-items">
+					<li class="slide-in-menu-item"><a href="index.html">HOME</a></li>
+					<li class="slide-in-menu-item"><a href="category.html">LATEST</a></li>
+					<li class="slide-in-menu-item"><a href="category.html">NEWS</a></li>
+					<li class="slide-in-menu-item"><a href="category.html">RUMOURS</a></li>
+					<li class="slide-in-menu-item"><a href="category.html">OPINION</a></li>
+					<li class="slide-in-menu-item"><a href="category.html">PREVIEWS</a></li>
+					<li class="slide-in-menu-item"><a href="category.html">REVIEWS</a></li>
+				</ul>
+				<section class="footer-socials">
+					<a href="" class="fab fa-facebook"></a>
+					<a href="" class="fab fa-twitter"></a>
+					<a href="" class="fab fa-youtube"></a>
+					<a href="" class="fab fa-instagram"></a>
+					<a href="" class="fab fa-tiktok"></a>
+				</section>
+			</div>
+	  	</nav>			
+			
+		<main>
+			<div class="flex-container">
+
+				<div class="post-container">
+					
+					<div class="recent-posts-container">
+						
+						<article class="title-post title-post1 post">
+							<h4>RECENT</h4>
+							<img src="images/title-post1.jpg" alt="" />
+							<section class="post-content">
+								<p class="post-content-poster">posted by <a href="">Maxwell Hogg</a></p>
+								<a href="post.html">
+									<h1>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h1>
+								</a>
+							</section>
+						</article>
+						
+						<article class="title-post title-post2 post">
+							<img src="images/title-post2.jpg" alt="" />
+							<section class="post-content">
+								<p class="post-content-poster">posted by <a href="">Maxwell Hogg</a></p>
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+								</a>
+							</section>
+						</article>
+						
+						<article class="title-post title-post3 post">
+							<img src="images/title-post3.jpg" alt="" />
+							<section class="post-content">
+								<p class="post-content-poster">posted by <a href="">Maxwell Hogg</a></p>
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+								</a>
+							</section>
+						</article>
+						
+						<article class="title-post title-post4 post">
+							<img src="images/title-post4.jpg" alt="" />
+							<section class="post-content">
+								<p class="post-content-poster">posted by <a href="">Maxwell Hogg</a></p>
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+								</a>
+							</section>
+						</article>
+						
+						<a href="" class="btn-link1"><button class="btn-st1">SEE ALL LATEST...</button></a>
+						
+					</div>
+					
+					<div class="sub-posts-container">
+						
+						<h4>NEWS</h4>
+						<article class="sub-post">
+							<img src="images/title-post5.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster__link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<article class="sub-post">
+							<img src="images/title-post6.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster__link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<article class="sub-post">
+							<img src="images/title-post7.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster__link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<article class="sub-post">
+							<img src="images/title-post8.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster-link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<article class="sub-post">
+							<img src="images/title-post9.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster-link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<article class="sub-post">
+							<img src="images/title-post10.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster-link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<a href="" class="btn-link1"><button class="btn-st1">SEE ALL NEWS...</button></a>
+						
+					</div>
+					
+					<div class="sub-posts-container">
+						
+						<h4>RUMOURS</h4>
+						<article class="sub-post">
+							<img src="images/splatter-university.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<article class="sub-post">
+							<img src="images/happy-birthday-to-me.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster__link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<article class="sub-post">
+							<img src="images/killer-workout.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster__link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<article class="sub-post">
+							<img src="images/happy-death-day.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster-link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<article class="sub-post">
+							<img src="images/title-post9.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster-link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<article class="sub-post">
+							<img src="images/title-post10.jpg" alt="" />
+							<section class="sub-post-content">
+								<a href="post.html">
+									<h3>This is the title post 2</h3>
+									<p>This is an excert from the...</p>
+								</a>
+								<p class="post-content-poster">posted by <a href="" class="post-content-poster-link">Maxwell Hogg</a></p>
+							</section>
+						</article>
+						
+						<a href="" class="btn-link1"><button class="btn-st1">SEE ALL RUMOURS...</button></a>
+						
+					</div>
+					
+				</div>
+				
+				
+				
+				<div class="sidebar-container">
+					
+					<aside class="latest-sidebar">
+						
+						<h4>MOST RECENT POSTS</h4>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post1.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post2.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post3.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post4.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+				
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post3.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post4.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>		
+						
+						<h4>MORE NEWS POSTS</h4>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/disconnected.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/final-exam.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/Halloween-ends.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/Halloween-kills.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+	
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post3.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post4.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+				
+						<h4>MORE RUMOURS POSTS</h4>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/disconnected.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/final-exam.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/Halloween-ends.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/Halloween-kills.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+	
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post3.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post4.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+	
+						<h4>MORE OPINION POSTS</h4>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/disconnected.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/final-exam.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/Halloween-ends.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/Halloween-kills.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+	
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post3.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post4.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>					
+						
+						<h4>MORE PREVIEW POSTS</h4>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/disconnected.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/final-exam.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/Halloween-ends.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/Halloween-kills.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+	
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post3.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>Halloween Ends bombs at the box-office... But is it really as bad as reviewers suggest?</h4>
+								</a>
+							</section>
+						</article>
+						
+						<article class="sidebar-post">
+							<a href="post.html"><img src="images/title-post4.jpg" alt="" /></a>
+							<section class="sidebar-post-content">
+								<a href="post.html">
+									<h4>This is the title post 2</h4>
+								</a>
+							</section>
+						</article>
+						
+					</aside>
+					
+				</div>
+				
+			</div>
+			
+	  	</main>
+	
+		<footer>
+			
+			<div class="footer-container">
+				<section class="footer-socials">
+					<a href="" class="fab fa-facebook"></a>
+					<a href="" class="fab fa-twitter"></a>
+					<a href="" class="fab fa-youtube"></a>
+					<a href="" class="fab fa-instagram"></a>
+					<a href="" class="fab fa-tiktok"></a>
+				</section>
+				<a href="index.html" class="logo">I<span class="logo-accent">GOT</span>CHILLS</a>
+			</div>
+						
+			<p>&copy; 2025 all rights reserved by I Got Chills - Thanks for visiting.</p>
+			
+		</footer>
+	
+	    <script src="script.js"></script>
+		
+	</body>
+</html>
