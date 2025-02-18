@@ -275,7 +275,14 @@ nav ul {
 }
 
 .post-container {
-	min-width: 70%;
+	/* min-width: 70%; */
+	flex: 0 0 70%;
+}
+
+@media (max-width: 1191px) {
+	.post-container {
+		flex: 0 0 100%;
+	}
 }
 
 .recent-posts-container {
@@ -412,9 +419,15 @@ nav ul {
 	----------------  */
 
 .sidebar-container {
-	grid-area: sidebar-container;
 	border: 2px solid var(--col-sec);
-	width: 100%;
+	flex: 0 0 30%;
+	width: auto;
+}
+
+@media (max-width: 1191px) {
+	.sidebar-container {
+		flex: 0 0 100%;
+	}
 }
 
 .latest-sidebar h4 {
@@ -508,12 +521,12 @@ footer {
 
 
 .full-post-container {
-	max-width: 70%;
+	flex: 0 0 70%;
 }
 
 @media (max-width: 1191px) {
 	.full-post-container {
-		max-width: 100%;
+		flex: 0 0 100%;
 	}
 }
 
