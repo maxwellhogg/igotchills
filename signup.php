@@ -1,7 +1,7 @@
 <?php 
+require_once 'includes/functions.php';
 include 'includes/header.php';
 require 'includes/db-connect.php';
-require 'includes/functions.php';
 
 $error = '';
 $success = '';
@@ -27,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->rowCount() > 0) {
             $error = "Username or email already taken.";
         } else {
-            // Hash the password using our utility function (uses PASSWORD_DEFAULT, which is bcrypt)
+            // Hash the password securely (using bcrypt via PASSWORD_DEFAULT)
             $passwordHash = hash_password($password);
-            // Insert into the users table; set role as 'subscriber'
+            // Insert the new subscriber into the users table with role 'subscriber'
             $stmtInsert = $pdo->prepare("INSERT INTO users (username, email_address, profile_image_link, role, password_hash) VALUES (?, ?, ?, 'subscriber', ?)");
             $stmtInsert->execute([$username, $email, '', $passwordHash]);
             $success = "Signup successful! You can now log in.";
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<div class="signup-container" style="margin: 2rem auto; max-width: 500px;">
+<div class="signup-container">
   <h2>Subscriber Signup</h2>
   <?php if ($error): ?>
     <p style="color:red;"><?php echo $error; ?></p>

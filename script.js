@@ -4,75 +4,44 @@ document.addEventListener('DOMContentLoaded', function() {
     const likeCount = document.getElementById('likeCount');
 
     if (likeButton && likeCount) {
-        let count = 0;
-
         likeButton.addEventListener('click', function() {
-            likeButton.classList.toggle('liked');
-            if (likeButton.classList.contains('liked')) {
-                count++;
-            } else {
-                count--;
+            // Prevent multiple likes by checking if already liked.
+            if (!likeButton.classList.contains('liked')) {
+                likeButton.classList.add('liked');
+                const postId = likeButton.getAttribute('data-post-id');
+                fetch('like.php?post=' + postId)
+                  .then(response => response.text())
+                  .then(newCount => {
+                      likeCount.textContent = newCount;
+                  })
+                  .catch(error => console.error('Error updating like count:', error));
             }
-            likeCount.textContent = count;
         });
     }
 });
 
 // SHARE BUTTONS
 
-    // Share to Facebook Button
-    const shareFacebook = document.getElementById('shareFacebook');
-    if (shareFacebook) {
-        shareFacebook.addEventListener('click', function() {
-            const url = encodeURIComponent(window.location.href); // Current page URL
-            const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-            window.open(facebookShareUrl, '_blank');
-        });
-    }
-
-    // Share to X Button
-    const shareX = document.getElementById('shareX');
-    if (shareX) {
-        shareX.addEventListener('click', function() {
-            const text = encodeURIComponent("Check out this awesome blog post!"); // Custom text
-            const url = encodeURIComponent(window.location.href); // Current page URL
-            const xShareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-            window.open(xShareUrl, '_blank');
-        });
-    }
-
-// WYSIWYG
-
-document.addEventListener('DOMContentLoaded', function() {
-    const toolbarButtons = document.querySelectorAll('.toolbar-button');
-    const commentTextarea = document.querySelector('.comment-textarea');
-    const postCommentButton = document.querySelector('.post-comment-button');
-
-    // WYSIWYG Toolbar Functionality
-    toolbarButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const command = button.getAttribute('data-command');
-            if (command) {
-                document.execCommand(command, false, null);
-                commentTextarea.focus(); // Keep focus on the textarea
-            }
-        });
+// Share to Facebook Button
+const shareFacebook = document.getElementById('shareFacebook');
+if (shareFacebook) {
+    shareFacebook.addEventListener('click', function() {
+        const url = encodeURIComponent(window.location.href); // Current page URL
+        const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        window.open(facebookShareUrl, '_blank');
     });
+}
 
-    // Post Comment Button Functionality
-    if (postCommentButton) {
-        postCommentButton.addEventListener('click', function() {
-            const comment = commentTextarea.value.trim();
-            if (comment) {
-                console.log('Posted Comment:', comment);
-                alert('Comment posted successfully!');
-                commentTextarea.value = ''; // Clear the textarea
-            } else {
-                alert('Please write a comment before posting.');
-            }
-        });
-    }
-});
+// Share to X Button
+const shareX = document.getElementById('shareX');
+if (shareX) {
+    shareX.addEventListener('click', function() {
+        const text = encodeURIComponent("Check out this awesome blog post!"); // Custom text
+        const url = encodeURIComponent(window.location.href); // Current page URL
+        const xShareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+        window.open(xShareUrl, '_blank');
+    });
+}
 
 //HAMBURGER & SLIDE-IN MENU
 document.addEventListener("DOMContentLoaded", function() {

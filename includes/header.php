@@ -1,3 +1,7 @@
+<?php
+require_once 'functions.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +30,15 @@
             <li><a href="category.php?category=opinion">OPINION</a></li>
             <li><a href="category.php?category=previews">PREVIEWS</a></li>
             <li><a href="category.php?category=reviews">REVIEWS</a></li>
+            <?php if (!is_logged_in()): ?>
+            <span class="login-prompt">
+                <a href="login.php">Log in</a> / <a href="signup.php">Sign up</a>
+            </span>
+            <?php else: ?>
+            <span class="login-prompt">
+                <a href="logout.php">Log Out</a>
+            </span>
+            <?php endif; ?>
         </ul>
         <div class="hamburger">
             <div class="hamburger-lines" id="hamburger-line-1"></div>
@@ -43,6 +56,9 @@
                 <li class="slide-in-menu-item"><a href="category.php?category=previews">PREVIEWS</a></li>
                 <li class="slide-in-menu-item"><a href="category.php?category=reviews">REVIEWS</a></li>
             </ul>
+            <span class="login-prompt">
+                <a href="login.php">Log in</a> / <a href="signup.php">Sign up</a>
+            </span>
             <section class="footer-socials">
                 <a href="" class="fab fa-facebook"></a>
                 <a href="" class="fab fa-twitter"></a>

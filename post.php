@@ -1,7 +1,7 @@
 <?php 
+require_once 'includes/functions.php';
 include 'includes/header.php';
 require 'includes/db-connect.php';
-require 'includes/functions.php';
 
 // Get the post ID from the URL; redirect to index if missing.
 if (isset($_GET['id'])) {
@@ -63,9 +63,9 @@ $comments = $stmtComments->fetchAll();
         </section>
         <section class="like-share-container">
           <!-- LIKE BUTTON -->
-          <div class="like-button" id="likeButton">
+          <div class="like-button" id="likeButton" data-post-id="<?php echo $post['id']; ?>">
             <span class="heart">&#x2665;</span>
-            <span class="like-count" id="likeCount">0</span>
+            <span class="like-count" id="likeCount"><?php echo $post['like_count']; ?></span>
             <span class="like">LIKE</span>
           </div>
           <!-- SHARE BUTTONS -->
@@ -78,7 +78,9 @@ $comments = $stmtComments->fetchAll();
             </button>
           </div>
         </section>
-        <!-- COMMENTS SECTION WITH WYSIWYG EDITOR -->
+
+
+        <!-- COMMENTS SECTION -->
         <section class="user-comments-input">
           <div class="comment-header">
             <span class="comment-count"><?php echo count($comments); ?> comments</span>
@@ -92,30 +94,14 @@ $comments = $stmtComments->fetchAll();
             <p style="color:red;"><?php echo $commentError; ?></p>
           <?php endif; ?>
           <?php if (is_logged_in()): ?>
-            <!-- WYSIWYG Toolbar -->
-            <div class="wysiwyg-toolbar">
-              <button class="toolbar-button" data-command="bold"><i class="fas fa-bold"></i></button>
-              <button class="toolbar-button" data-command="italic"><i class="fas fa-italic"></i></button>
-              <button class="toolbar-button" data-command="underline"><i class="fas fa-underline"></i></button>
-              <button class="toolbar-button" data-command="h1"><i class="fas fa-heading"></i>1</button>
-              <button class="toolbar-button" data-command="h2"><i class="fas fa-heading"></i>2</button>
-              <button class="toolbar-button" data-command="h3"><i class="fas fa-heading"></i>3</button>
-              <button class="toolbar-button" data-command="h4"><i class="fas fa-heading"></i>4</button>
-              <button class="toolbar-button" data-command="quote"><i class="fas fa-quote-right"></i></button>
-              <button class="toolbar-button" data-command="list-ul"><i class="fas fa-list-ul"></i></button>
-              <button class="toolbar-button" data-command="list-ol"><i class="fas fa-list-ol"></i></button>
-              <button class="toolbar-button" data-command="link"><i class="fas fa-link"></i></button>
-              <button class="toolbar-button" data-command="image"><i class="fas fa-image"></i></button>
-              <button class="toolbar-button" data-command="gif"><i class="fas fa-film"></i></button>
-            </div>
-            <!-- Comment Input Form -->
             <form method="post" action="post.php?id=<?php echo $post_id; ?>">
               <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
-              <textarea class="comment-textarea" name="comment" placeholder="Write your comment here..."></textarea>
+              <textarea class="comment-textarea" name="comment" placeholder="Write your comment here..." style="min-height:150px; border:2px solid var(--col-sec); padding:1rem;"></textarea>
               <button class="post-comment-button" type="submit">Post Comment</button>
             </form>
           <?php endif; ?>
         </section>
+
         <!-- COMMENTS DISPLAY -->
         <section class="user-comments">
           <?php if ($comments): ?>
@@ -137,6 +123,7 @@ $comments = $stmtComments->fetchAll();
             <p>No comments yet.</p>
           <?php endif; ?>
         </section>
+
       </article>
     </div>
     <!-- Sidebar Container -->

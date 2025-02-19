@@ -1,7 +1,7 @@
 <?php 
+require_once 'includes/functions.php';
 include 'includes/header.php';
 require 'includes/db-connect.php';
-require 'includes/functions.php';
 
 $error = '';
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmtUser->execute([$email]);
         $user = $stmtUser->fetch();
         
-        // Verify the password using password_verify()
+        // Verify the password
         if ($user && verify_password($password, $user['password_hash'])) {
             login_user($user['id']);
             redirect('index.php');
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<div class="login-container" style="margin: 2rem auto; max-width: 500px;">
+<div class="login-container">
   <h2>Subscriber / User Login</h2>
   <?php if ($error): ?>
     <p style="color:red;"><?php echo $error; ?></p>
