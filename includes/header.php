@@ -17,7 +17,7 @@ require_once 'functions.php';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Road+Rage&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet" />
     <!-- Site CSS -->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/igotchills/style.css">
 </head>
 <body>
     <nav>
@@ -56,9 +56,15 @@ require_once 'functions.php';
                 <li class="slide-in-menu-item"><a href="category.php?category=previews">PREVIEWS</a></li>
                 <li class="slide-in-menu-item"><a href="category.php?category=reviews">REVIEWS</a></li>
             </ul>
+            <?php if (!is_logged_in()): ?>
             <span class="login-prompt">
                 <a href="login.php">Log in</a> / <a href="signup.php">Sign up</a>
             </span>
+            <?php else: ?>
+            <span class="login-prompt">
+                <a href="logout.php">Log Out</a>
+            </span>
+            <?php endif; ?>
             <section class="footer-socials">
                 <a href="" class="fab fa-facebook"></a>
                 <a href="" class="fab fa-twitter"></a>

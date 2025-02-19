@@ -40,8 +40,14 @@ if (!$post) {
     exit;
 }
 
-// Fetch comments for this post.
-$stmtComments = $pdo->prepare("SELECT * FROM comments WHERE post = ? ORDER BY date_of_post ASC");
+// Fetch comments for this post with profile image from users table.
+$stmtComments = $pdo->prepare("
+    SELECT c.*, u.profile_image_link 
+    FROM comments c 
+    LEFT JOIN users u ON c.username = u.username 
+    WHERE c.post = ? 
+    ORDER BY c.date_of_post ASC
+");
 $stmtComments->execute([$post_id]);
 $comments = $stmtComments->fetchAll();
 ?>
@@ -108,7 +114,7 @@ $comments = $stmtComments->fetchAll();
             <?php foreach ($comments as $comment): ?>
               <div class="comment">
                 <div class="comment-profile-image">
-                  <img src="images/profile-pic-placeholder.jpg" alt="Profile Image">
+                  <img src="<?php echo !empty($comment['profile_image_link']) ? htmlspecialchars($comment['profile_image_link']) : 'images/profile-pic-placeholder.jpg'; ?>" alt="Profile Image">
                 </div>
                 <div class="comment-content">
                   <div class="comment-header">
@@ -136,3 +142,4 @@ $comments = $stmtComments->fetchAll();
 </main>
 
 <?php include 'includes/footer.php'; ?>
+
