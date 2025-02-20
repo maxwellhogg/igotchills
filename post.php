@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
     }
 }
 
-// Fetch the full post.
-$stmtPost = $pdo->prepare("SELECT * FROM posts WHERE id = ?");
+// Fetch the full post along with the author's username.
+$stmtPost = $pdo->prepare("SELECT p.*, u.username AS author_name FROM posts p JOIN users u ON p.author = u.id WHERE p.id = ?");
 $stmtPost->execute([$post_id]);
 $post = $stmtPost->fetch();
 if (!$post) {
@@ -58,7 +58,7 @@ $comments = $stmtComments->fetchAll();
       <article class="full-blog-post">
         <h1><?php echo htmlspecialchars($post['title']); ?></h1>
         <p class="post-content-poster">
-          posted by <a href="#"><?php echo htmlspecialchars($post['author']); ?></a>
+          posted by <a href="#"><?php echo htmlspecialchars($post['author_name']); ?></a>
         </p>
         <img src="<?php echo $post['main_image_link']; ?>" alt="<?php echo htmlspecialchars($post['title']); ?>" />
         <section class="full-blog-post-text">
@@ -84,7 +84,6 @@ $comments = $stmtComments->fetchAll();
             </button>
           </div>
         </section>
-
 
         <!-- COMMENTS SECTION -->
         <section class="user-comments-input">

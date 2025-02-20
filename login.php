@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once 'includes/functions.php';
 include 'includes/header.php';
 require 'includes/db-connect.php';
@@ -12,15 +12,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($email) || empty($password)) {
         $error = "Please fill in all fields.";
     } else {
-        // Look up the user in the users table by email
+        // Look up the user in the users table by email.
         $stmtUser = $pdo->prepare("SELECT * FROM users WHERE email_address = ?");
         $stmtUser->execute([$email]);
         $user = $stmtUser->fetch();
         
-        // Verify the password
+        // Verify the password.
         if ($user && verify_password($password, $user['password_hash'])) {
             login_user($user['id']);
-            redirect('index.php');
+            // If the user is an admin or author, open the dashboard in a new tab.
+            if (in_array($user['role'], ['admin', 'author'])) {
+              redirect('/igotchills/admin/dashboard.php');
+          } else {
+              redirect('/igotchills/index.php');
+          }
         } else {
             $error = "Invalid email or password.";
         }
@@ -33,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php if ($error): ?>
     <p style="color:red;"><?php echo $error; ?></p>
   <?php endif; ?>
-  <form method="post" action="login.php">
+  <form method="post" action="/igotchills/login.php">
     <label for="email">Email Address:</label>
     <input type="email" name="email" id="email" required>
     
@@ -42,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <button type="submit">Log In</button>
   </form>
-  <p>Don't have an account? <a href="signup.php">Sign up here</a>.</p>
+  <p>Don't have an account? <a href="/igotchills/signup.php">Sign up here</a>.</p>
 </div>
 
 <?php include 'includes/footer.php'; ?>

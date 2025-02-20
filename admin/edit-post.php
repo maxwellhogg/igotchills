@@ -121,8 +121,108 @@ $categories = $stmtCategories->fetchAll();
       <?php endforeach; ?>
     </select>
     
+    <!-- Post Content Editor for Editing -->
     <label for="post_content">Content:</label>
-    <textarea name="post_content" id="post_content" rows="10" required><?php echo htmlspecialchars($post['post_content']); ?></textarea>
+
+    <!-- Toolbar -->
+    <div id="editor-toolbar">
+      <button type="button" class="toolbar-button" data-command="bold" title="Bold"><i class="fa fa-bold"></i></button>
+      <button type="button" class="toolbar-button" data-command="italic" title="Italic"><i class="fa fa-italic"></i></button>
+      <button type="button" class="toolbar-button" data-command="underline" title="Underline"><i class="fa fa-underline"></i></button>
+      
+      <!-- Headings -->
+      <button type="button" class="toolbar-button" data-command="formatBlock" data-value="H1" title="Heading 1"><i class="fa fa-header"></i>1</button>
+      <button type="button" class="toolbar-button" data-command="formatBlock" data-value="H2" title="Heading 2"><i class="fa fa-header"></i>2</button>
+      <button type="button" class="toolbar-button" data-command="formatBlock" data-value="H3" title="Heading 3"><i class="fa fa-header"></i>3</button>
+      <button type="button" class="toolbar-button" data-command="formatBlock" data-value="H4" title="Heading 4"><i class="fa fa-header"></i>4</button>
+      
+      <!-- Quote -->
+      <button type="button" class="toolbar-button" data-command="formatBlock" data-value="blockquote" title="Quote"><i class="fa fa-quote-left"></i></button>
+      
+      <!-- Link -->
+      <button type="button" class="toolbar-button" data-command="createLink" title="Insert Link"><i class="fa fa-link"></i></button>
+      
+      <!-- Image Upload -->
+      <button type="button" class="toolbar-button" data-command="insertImage" title="Insert Image"><i class="fa fa-image"></i></button>
+    </div>
+
+    <!-- Hidden file input for image upload (hidden by default) -->
+    <input type="file" id="imageUploadInput" style="display:none;">
+
+    <!-- Hidden input to capture editor content -->
+    <input type="hidden" name="post_content" id="post_content">
+
+    <!-- The WYSIWYG editor -->
+    <div id="editor" contenteditable="true" class="editor" style="min-height:300px; border:2px solid var(--col-sec); padding:1rem;">
+      <!-- For new posts, this will start empty. For edit, pre-populate with existing content. -->
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set default paragraph separator to <br> if desired.
+      document.execCommand('defaultParagraphSeparator', false, 'br');
+      
+      const toolbarButtons = document.querySelectorAll('#editor-toolbar .toolbar-button');
+      const editor = document.getElementById('editor');
+      const imageUploadInput = document.getElementById('imageUploadInput');
+
+      toolbarButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const command = button.getAttribute('data-command');
+          if (command === 'createLink') {
+            let url = prompt("Enter the link URL:");
+            if(url) {
+              document.execCommand(command, false, url);
+            }
+          } else if (command === 'insertImage') {
+            // Trigger the file input instead of prompting for a URL.
+            imageUploadInput.click();
+          } else {
+            const value = button.getAttribute('data-value') || null;
+            document.execCommand(command, false, value);
+          }
+          editor.focus();
+        });
+      });
+
+      // Handle file input change for image uploads.
+      imageUploadInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          const formData = new FormData();
+          formData.append('image', file);
+          
+          // Adjust the endpoint path as needed.
+          fetch('/igotchills/admin/upload-image.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              // Insert the uploaded image into the editor.
+              document.execCommand('insertImage', false, data.url);
+            } else {
+              alert("Image upload failed: " + data.error);
+            }
+          })
+          .catch(error => console.error('Error uploading image:', error));
+        }
+      });
+
+      // On form submission, copy the editor's content to the hidden input.
+      const form = document.querySelector('form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          const hiddenInput = document.getElementById('post_content');
+          hiddenInput.value = editor.innerHTML;
+        });
+      }
+    });
+    </script>
+
+
+
     
     <label for="thumbnail">Thumbnail Image (optional):</label>
     <input type="file" name="thumbnail" id="thumbnail">

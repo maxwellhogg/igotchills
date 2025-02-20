@@ -2,42 +2,46 @@
 include 'includes/header.php'; 
 require 'includes/db-connect.php';
 
-// Get the selected category from URL (default to 'latest')
 $categorySlug = isset($_GET['category']) ? $_GET['category'] : 'latest';
 
-// Set pagination parameters for main content
 $postsPerPage = 14;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $postsPerPage;
 
 if ($categorySlug === 'latest') {
     $heading = "ALL LATEST POSTS";
-    // Count all posts
     $stmtCount = $pdo->prepare("SELECT COUNT(*) as total FROM posts");
     $stmtCount->execute();
     $totalPosts = $stmtCount->fetch()['total'];
     
-    // Fetch posts without filtering by category
-    $stmtPosts = $pdo->prepare("SELECT * FROM posts ORDER BY post_date DESC LIMIT :limit OFFSET :offset");
+    // Join with users table to get the author's username.
+    $stmtPosts = $pdo->prepare("SELECT p.*, u.username AS author_name 
+                                FROM posts p 
+                                JOIN users u ON p.author = u.id 
+                                ORDER BY p.post_date DESC 
+                                LIMIT :limit OFFSET :offset");
     $stmtPosts->bindValue(':limit', $postsPerPage, PDO::PARAM_INT);
     $stmtPosts->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmtPosts->execute();
     $posts = $stmtPosts->fetchAll();
 } else {
-    // Look up category details using the slug
     $stmtCat = $pdo->prepare("SELECT * FROM categories WHERE slug = ?");
     $stmtCat->execute([$categorySlug]);
     $category = $stmtCat->fetch();
     
     if ($category) {
         $heading = "ALL " . strtoupper($category['name']) . " POSTS";
-        // Count posts in this category
         $stmtCount = $pdo->prepare("SELECT COUNT(*) as total FROM posts WHERE post_category = ?");
         $stmtCount->execute([$category['id']]);
         $totalPosts = $stmtCount->fetch()['total'];
 
-        // For a specific category (not "latest"):
-        $stmtPosts = $pdo->prepare("SELECT * FROM posts WHERE post_category = :cat ORDER BY post_date DESC LIMIT :limit OFFSET :offset");
+        // Join with users to retrieve author_name.
+        $stmtPosts = $pdo->prepare("SELECT p.*, u.username AS author_name 
+                                    FROM posts p 
+                                    JOIN users u ON p.author = u.id 
+                                    WHERE p.post_category = :cat 
+                                    ORDER BY p.post_date DESC 
+                                    LIMIT :limit OFFSET :offset");
         $stmtPosts->bindValue(':cat', $category['id'], PDO::PARAM_INT);
         $stmtPosts->bindValue(':limit', $postsPerPage, PDO::PARAM_INT);
         $stmtPosts->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -70,7 +74,7 @@ $totalPages = ceil($totalPosts / $postsPerPage);
                                     <p><?php echo substr(strip_tags($post['post_content']), 0, 100) . '...'; ?></p>
                                 </a>
                                 <p class="post-content-poster">
-                                    posted by <a href="#"><?php echo htmlspecialchars($post['author']); ?></a>
+                                    posted by <a href="#"><?php echo htmlspecialchars($post['author_name']); ?></a>
                                 </p>
                             </section>
                         </article>
@@ -79,10 +83,9 @@ $totalPages = ceil($totalPosts / $postsPerPage);
                     <p>No posts available in this category.</p>
                 <?php endif; ?>
                 
-                <!-- Pagination (dynamically rendered) -->
+                <!-- Pagination -->
                 <?php if($totalPages > 1): ?>
                 <div class="pagination">
-                    <!-- Left Arrow -->
                     <?php if($page > 1): ?>
                         <a class="pagination-arrow" href="?category=<?php echo urlencode($categorySlug); ?>&page=<?php echo ($page - 1); ?>">&larr;</a>
                     <?php else: ?>
@@ -97,7 +100,6 @@ $totalPages = ceil($totalPosts / $postsPerPage);
                         <?php endif; ?>
                     <?php endfor; ?>
                     
-                    <!-- Right Arrow -->
                     <?php if($page < $totalPages): ?>
                         <a class="pagination-arrow" href="?category=<?php echo urlencode($categorySlug); ?>&page=<?php echo ($page + 1); ?>">&rarr;</a>
                     <?php else: ?>
@@ -108,13 +110,11 @@ $totalPages = ceil($totalPosts / $postsPerPage);
             </div>
         </div>
 
-        <!-- Sidebar Container (exactly as in your original category.html) -->
+        <!-- Sidebar Container (unchanged) -->
         <div class="sidebar-container">
             <aside class="latest-sidebar">
-                <!-- MOST RECENT POSTS -->
                 <h4>MOST RECENT POSTS</h4>
                 <?php
-                // Fetch 6 most recent posts overall for the sidebar
                 $stmtSidebar = $pdo->prepare("SELECT * FROM posts ORDER BY post_date DESC LIMIT 6");
                 $stmtSidebar->execute();
                 $sidebarPosts = $stmtSidebar->fetchAll();
@@ -139,13 +139,10 @@ $totalPages = ceil($totalPosts / $postsPerPage);
                 ?>
 
                 <?php
-                // Dynamically render additional sidebar sections for each category
-                // (Ordered by id: assumes NEWS, RUMOURS, OPINION, PREVIEWS, REVIEWS, etc.)
                 $stmtCategories = $pdo->prepare("SELECT * FROM categories ORDER BY id ASC");
                 $stmtCategories->execute();
                 $allCategories = $stmtCategories->fetchAll();
                 foreach($allCategories as $cat):
-                    // Fetch 6 posts from this category for the sidebar
                     $stmtCatSidebar = $pdo->prepare("SELECT * FROM posts WHERE post_category = ? ORDER BY post_date DESC LIMIT 6");
                     $stmtCatSidebar->execute([$cat['id']]);
                     $catSidebarPosts = $stmtCatSidebar->fetchAll();
@@ -174,3 +171,4 @@ $totalPages = ceil($totalPosts / $postsPerPage);
 </main>
 
 <?php include 'includes/footer.php'; ?>
+

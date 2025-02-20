@@ -9,8 +9,8 @@ require 'includes/db-connect.php';
             <!-- Recent Posts Section -->
             <div class="recent-posts-container">
                 <?php
-                // Fetch the 4 most recent posts
-                $stmt = $pdo->prepare("SELECT * FROM posts ORDER BY post_date DESC LIMIT 4");
+                // Fetch the 4 most recent posts along with the author's username.
+                $stmt = $pdo->prepare("SELECT p.*, u.username AS author_name FROM posts p JOIN users u ON p.author = u.id ORDER BY p.post_date DESC LIMIT 4");
                 $stmt->execute();
                 $recentPosts = $stmt->fetchAll();
                 ?>
@@ -28,11 +28,11 @@ require 'includes/db-connect.php';
                             <img src="<?php echo $post['thumbnail_link']; ?>" alt="<?php echo htmlspecialchars($post['title']); ?>" />
                             <section class="post-content">
                                 <p class="post-content-poster">
-                                    posted by <a href="#"><?php echo htmlspecialchars($post['author']); ?></a>
+                                    posted by <a href="#"><?php echo htmlspecialchars($post['author_name']); ?></a>
                                 </p>
                                 <a href="post.php?id=<?php echo $post['id']; ?>">
                                     <?php 
-                                    // Use <h1> for the most recent post and <h3> for others
+                                    // Use <h1> for the most recent post and <h3> for others.
                                     if ($index === 0) {
                                         echo "<h1>" . htmlspecialchars($post['title']) . "</h1>";
                                     } else {
@@ -53,7 +53,7 @@ require 'includes/db-connect.php';
             
             <!-- Dynamic Sub-Posts Sections for Each Category -->
             <?php
-            // Fetch all categories from the database
+            // Fetch all categories from the database.
             $stmt = $pdo->prepare("SELECT * FROM categories ORDER BY name ASC");
             $stmt->execute();
             $categories = $stmt->fetchAll();
@@ -61,8 +61,8 @@ require 'includes/db-connect.php';
 
             <?php foreach ($categories as $category): ?>
                 <?php
-                // For each category, fetch up to 6 of the most recent posts
-                $stmtPosts = $pdo->prepare("SELECT * FROM posts WHERE post_category = ? ORDER BY post_date DESC LIMIT 6");
+                // For each category, fetch up to 6 of the most recent posts along with the author's username.
+                $stmtPosts = $pdo->prepare("SELECT p.*, u.username AS author_name FROM posts p JOIN users u ON p.author = u.id WHERE p.post_category = ? ORDER BY p.post_date DESC LIMIT 6");
                 $stmtPosts->execute([$category['id']]);
                 $posts = $stmtPosts->fetchAll();
                 ?>
@@ -83,7 +83,7 @@ require 'includes/db-connect.php';
                                         </p>
                                     </a>
                                     <p class="post-content-poster">
-                                        posted by <a href="#"><?php echo htmlspecialchars($post['author']); ?></a>
+                                        posted by <a href="#"><?php echo htmlspecialchars($post['author_name']); ?></a>
                                     </p>
                                 </section>
                             </article>
@@ -100,3 +100,4 @@ require 'includes/db-connect.php';
 </main>
 
 <?php include 'includes/footer.php'; ?>
+

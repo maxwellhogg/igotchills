@@ -21,22 +21,22 @@ require_once 'functions.php';
 </head>
 <body>
     <nav>
-        <a href="index.php" class="logo">I<span class="logo-accent">GOT</span>CHILLS</a>
+        <a href="/igotchills/index.php" class="logo">I<span class="logo-accent">GOT</span>CHILLS</a>
         <ul class="menu-items">
-            <li><a href="index.php">HOME</a></li>
-            <li><a href="category.php?category=latest">LATEST</a></li>
-            <li><a href="category.php?category=news">NEWS</a></li>
-            <li><a href="category.php?category=rumours">RUMOURS</a></li>
-            <li><a href="category.php?category=opinion">OPINION</a></li>
-            <li><a href="category.php?category=previews">PREVIEWS</a></li>
-            <li><a href="category.php?category=reviews">REVIEWS</a></li>
+            <li><a href="/igotchills/index.php">HOME</a></li>
+            <li><a href="/igotchills/category.php?category=latest">LATEST</a></li>
+            <li><a href="/igotchills/category.php?category=news">NEWS</a></li>
+            <li><a href="/igotchills/category.php?category=rumours">RUMOURS</a></li>
+            <li><a href="/igotchills/category.php?category=opinion">OPINION</a></li>
+            <li><a href="/igotchills/category.php?category=previews">PREVIEWS</a></li>
+            <li><a href="/igotchills/category.php?category=reviews">REVIEWS</a></li>
             <?php if (!is_logged_in()): ?>
             <span class="login-prompt">
-                <a href="login.php">Log in</a> / <a href="signup.php">Sign up</a>
+                <a href="/igotchills/login.php">Log in</a> / <a href="/igotchills/signup.php">Sign up</a>
             </span>
             <?php else: ?>
             <span class="login-prompt">
-                <a href="logout.php">Log Out</a>
+                <a href="/igotchills/logout.php">Log Out</a>
             </span>
             <?php endif; ?>
         </ul>
@@ -46,23 +46,23 @@ require_once 'functions.php';
             <div class="hamburger-lines" id="hamburger-line-3"></div>
         </div>
         <div class="slide-in-menu">
-            <a href="index.php" class="logo">I<span class="logo-accent">GOT</span>CHILLS</a>
+            <a href="/igotchills/index.php" class="logo">I<span class="logo-accent">GOT</span>CHILLS</a>
             <ul class="slide-in-menu-items">
-                <li class="slide-in-menu-item"><a href="index.php">HOME</a></li>
-                <li class="slide-in-menu-item"><a href="category.php?category=latest">LATEST</a></li>
-                <li class="slide-in-menu-item"><a href="category.php?category=news">NEWS</a></li>
-                <li class="slide-in-menu-item"><a href="category.php?category=rumours">RUMOURS</a></li>
-                <li class="slide-in-menu-item"><a href="category.php?category=opinion">OPINION</a></li>
-                <li class="slide-in-menu-item"><a href="category.php?category=previews">PREVIEWS</a></li>
-                <li class="slide-in-menu-item"><a href="category.php?category=reviews">REVIEWS</a></li>
+                <li class="slide-in-menu-item"><a href="/igotchills/index.php">HOME</a></li>
+                <li class="slide-in-menu-item"><a href="/igotchills/category.php?category=latest">LATEST</a></li>
+                <li class="slide-in-menu-item"><a href="/igotchills/category.php?category=news">NEWS</a></li>
+                <li class="slide-in-menu-item"><a href="/igotchills/category.php?category=rumours">RUMOURS</a></li>
+                <li class="slide-in-menu-item"><a href="/igotchills/category.php?category=opinion">OPINION</a></li>
+                <li class="slide-in-menu-item"><a href="/igotchills/category.php?category=previews">PREVIEWS</a></li>
+                <li class="slide-in-menu-item"><a href="/igotchills/category.php?category=reviews">REVIEWS</a></li>
             </ul>
             <?php if (!is_logged_in()): ?>
             <span class="login-prompt">
-                <a href="login.php">Log in</a> / <a href="signup.php">Sign up</a>
+                <a href="/igotchills/login.php">Log in</a> / <a href="/igotchills/signup.php">Sign up</a>
             </span>
             <?php else: ?>
             <span class="login-prompt">
-                <a href="logout.php">Log Out</a>
+                <a href="/igotchills/logout.php">Log Out</a>
             </span>
             <?php endif; ?>
             <section class="footer-socials">

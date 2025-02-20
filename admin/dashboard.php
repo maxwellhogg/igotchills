@@ -3,28 +3,39 @@ require_once '../includes/functions.php';
 include '../includes/header.php';
 require '../includes/db-connect.php';
 
-// Role-based access control: Only allow admin or author
+// Ensure only logged-in users can access.
 if (!is_logged_in()) {
-    redirect('login.php');
+    redirect('../login.php');
 }
 $user_id = get_logged_in_user();
-$stmtUser = $pdo->prepare("SELECT role FROM users WHERE id = ?");
+
+// Retrieve current user details.
+$stmtUser = $pdo->prepare("SELECT username, role FROM users WHERE id = ?");
 $stmtUser->execute([$user_id]);
-$user = $stmtUser->fetch();
-if (!in_array($user['role'], ['admin', 'author'])) {
-    echo "<p>Access denied. You do not have permission to view this page.</p>";
-    include 'includes/footer.php';
+$currentUser = $stmtUser->fetch();
+
+if (!$currentUser) {
+    echo "<p>User not found.</p>";
+    include '../includes/footer.php';
     exit;
 }
 
-// Fetch all blog posts
-$stmtPosts = $pdo->query("SELECT p.*, c.name AS category_name FROM posts p LEFT JOIN categories c ON p.post_category = c.id ORDER BY post_date DESC");
+// If the user is an author, show only their posts; if admin, show all posts.
+if ($currentUser['role'] === 'author') {
+    $stmtPosts = $pdo->prepare("SELECT p.*, c.name AS category_name FROM posts p LEFT JOIN categories c ON p.post_category = c.id WHERE p.author = ? ORDER BY p.post_date DESC");
+    $stmtPosts->execute([$currentUser['username']]);
+} else { // admin
+    $stmtPosts = $pdo->query("SELECT p.*, c.name AS category_name FROM posts p LEFT JOIN categories c ON p.post_category = c.id ORDER BY p.post_date DESC");
+}
 $posts = $stmtPosts->fetchAll();
 ?>
 
 <main>
   <h1>Dashboard</h1>
-  <p><a href="new-post.php">Create New Post</a></p>
+  <p><a href="/igotchills/admin/new-post.php">Create New Post</a></p>
+  <?php if ($currentUser['role'] === 'admin'): ?>
+    <p><a href="/igotchills/admin/add-author.php">Add New Author</a></p>
+  <?php endif; ?>
   <table border="1" cellpadding="8" cellspacing="0">
     <thead>
       <tr>
@@ -46,8 +57,8 @@ $posts = $stmtPosts->fetchAll();
             <td><?php echo htmlspecialchars($post['category_name']); ?></td>
             <td><?php echo date('M d, Y', strtotime($post['post_date'])); ?></td>
             <td>
-              <a href="edit-post.php?id=<?php echo $post['id']; ?>">Edit</a> |
-              <a href="/igotchills/post.php?id=<?php echo $post['id']; ?>" target="_blank">View</a>
+              <a href="/igotchills/admin/edit-post.php?id=<?php echo $post['id']; ?>">Edit</a> |
+              <a href="../post.php?id=<?php echo $post['id']; ?>" target="_blank">View</a>
             </td>
           </tr>
         <?php endforeach; ?>

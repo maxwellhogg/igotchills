@@ -10,6 +10,6 @@
             <p>&copy; <?php echo date("Y"); ?> I GOT CHILLS. All rights reserved.</p>
         </div>
     </footer>
-    <script src="script.js"></script>
+    <script src="/igotchills/script.js"></script>
 </body>
 </html>
