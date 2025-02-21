@@ -49,28 +49,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <main>
-  <h1>Add New Author</h1>
-  <?php if ($error): ?>
-    <p style="color:red;"><?php echo $error; ?></p>
-  <?php endif; ?>
-  <?php if ($success): ?>
-    <p style="color:green;"><?php echo $success; ?></p>
-  <?php endif; ?>
-  <form method="post" action="add-author.php" enctype="multipart/form-data">
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required>
-    
-    <label for="email">Email Address:</label>
-    <input type="email" name="email" id="email" required>
-    
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
-    
-    <label for="confirm_password">Confirm Password:</label>
-    <input type="password" name="confirm_password" id="confirm_password" required>
-    
-    <button type="submit">Add Author</button>
-  </form>
+    <div class="create-post-container">
+        <h1>Add New Author</h1>
+        <p><a href="dashboard.php">Return to Dashboard</a></p>
+        <?php if ($error): ?>
+            <p style="color:red;"><?php echo $error; ?></p>
+        <?php endif; ?>
+        <?php if ($success): ?>
+            <p style="color:green;"><?php echo $success; ?></p>
+        <?php endif; ?>
+        <form method="post" action="add-author.php" enctype="multipart/form-data">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
+            
+            <label for="email">Email Address:</label>
+            <input type="email" name="email" id="email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+            
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" name="confirm_password" id="confirm_password" required>
+            
+            <button type="submit">Add Author</button>
+        </form>
+    </div>
 </main>
 
 <?php include '../includes/footer.php'; ?>
